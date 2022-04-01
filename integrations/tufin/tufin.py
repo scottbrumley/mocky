@@ -24,7 +24,7 @@ def verify_password(username, password):
 
 @tufin_bp.route('/securechangeworkflow/api/securechange/devices', methods=['GET'])
 @auth.login_required
-def api_all():
+def securechangeworkflow_all():
     devices_info = {
         "devices":
                {"device": [   
@@ -47,3 +47,35 @@ def api_all():
 
     }
     return jsonify(devices_info)
+
+@tufin_bp.route('/securetrack/api/devices', methods=['GET'])
+@auth.login_required
+def securetrack_all():
+    devices_info = {
+        "devices":
+               {
+                "count": 2,
+                "total": 5000,
+                "device": [   
+                               {
+                               "id": 553,
+                               "name": request.args.get('name'),
+                               "ip": "9.9.9.9",
+                               "model": "5520",
+                               "vendor": "Cisco",
+                               "device_type": "asa"
+                               },
+                               {
+                               "id": 2,
+                               "name": "cisco_device_name",
+                               "ip": "7.7.7.7",
+                               "model": "2930",
+                               "vendor": "Cisco",
+                               "device_type": "router"
+                               }
+                          ]
+                }
+
+    }
+    return jsonify(devices_info)
+
