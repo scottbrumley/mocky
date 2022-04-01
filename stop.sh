@@ -1,4 +1,4 @@
 #!/bin/bash
 
 docker container stop mocky
-docker system prune
+docker system prune 

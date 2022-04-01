@@ -15,6 +15,31 @@ pw = 'tufin'
 secureworkflow = "/securechangeworkflow/api"
 securetrack = "/securetrack/api"
 
+# Dictionaries of Responses 
+devices_info = {
+        "devices":
+           {
+               "device": [   
+                           {
+                           "id": 553,
+                           "name": "asa",
+                           "ip": "9.9.9.9",
+                           "model": "5520",
+                           "vendor": "Cisco",
+                           "device_type": "asa"
+                           },
+                           {
+                           "id": 2,
+                           "name": "cisco_device_name",
+                           "ip": "7.7.7.7",
+                           "model": "2940",
+                           "vendor": "Cisco",
+                           "device_type": "router"
+                           }
+                      ]
+            }
+}
+
 users = {
     user: generate_password_hash(pw)
 }
@@ -25,65 +50,37 @@ def verify_password(username, password):
         return check_password_hash(users.get(username), password)
     return False
 
-
-@tufin_bp.route(secureworkflow + '/securechange/devices', methods=['GET'])
-@auth.login_required
-def securechangeworkflow_all():
-    devices_info = {
-        "devices":
-               {"device": [   
-                               {
-                               "id": 553,
-                               "name": request.args.get('name'),
-                               "ip": "9.9.9.9",
-                               "vendor": "Cisco",
-                               "device_type": "asa"
-                               },
-                               {
-                               "id": 2,
-                               "name": "cisco_device_name",
-                               "ip": "7.7.7.7",
-                               "vendor": "Cisco",
-                               "device_type": "router"
-                               }
-                          ]
-                }
-
-    }
-    return jsonify(devices_info)
-
-
 # SecureTrack Devices
 @tufin_bp.route(securetrack + '/devices', methods=['GET'])
 @auth.login_required
 def securetrack_all():
-    devices_info = {
+    name = request.args.get('name')
+    devices = {
         "devices":
-               {
-                "count": 2,
-                "total": 5000,
-                "device": [   
-                               {
-                               "id": 553,
-                               "name": request.args.get('name'),
-                               "ip": "9.9.9.9",
-                               "model": "5520",
-                               "vendor": "Cisco",
-                               "device_type": "asa"
-                               },
-                               {
-                               "id": 2,
-                               "name": "cisco_device_name",
-                               "ip": "7.7.7.7",
-                               "model": "2930",
-                               "vendor": "Cisco",
-                               "device_type": "router"
-                               }
-                          ]
-                }
+           {"device": [
+                      ]
+            }
+    } 
 
-    }
-    return jsonify(devices_info)
+    ttlCount = 0
+    findDevices = [] 
+    for device in devices_info['devices']['device']: 
+      ttlCount = ttlCount + 1
+      
+      if name:
+        for key, value in device.items():
+          if key == 'name' and value == name:
+            findDevices.append(device)
+      else:
+            findDevices.append(device)
+
+
+    print(findDevices, flush=True)
+    devices['devices']['count'] = len(findDevices)
+    devices['devices']['total'] = ttlCount 
+    devices['devices']['device']=findDevices
+    print(devices, flush=True)
+    return jsonify(devices)
 
 
 # Secure Change Workflow Applications 

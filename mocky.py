@@ -1,5 +1,6 @@
 from flask import Flask
 
+
 ### Import Blue Prints ###
 #Import IP Info Blue Print
 from integrations.ipinfo.ipinfo import ipinfo_bp 
