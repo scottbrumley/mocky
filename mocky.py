@@ -15,4 +15,4 @@ app.config["DEBUG"] = True
 app.register_blueprint(ipinfo_bp)
 app.register_blueprint(tufin_bp)
 
-app.run(host="0.0.0.0")
+app.run(host="0.0.0.0",ssl_context='adhoc')
