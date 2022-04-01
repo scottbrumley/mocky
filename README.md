@@ -1,4 +1,4 @@
-# XSOAR Mmocky
+# XSOAR Mocky
 This project builds a docker container that runs a Python Flask server where XSOAR can run API calls.  It mimics vendors for testing. This project uses Blueprints to allow modular based design by vendor.
 
 * **Dockerfile** - How Docker will build the container
