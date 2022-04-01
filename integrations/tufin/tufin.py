@@ -11,6 +11,10 @@ tufin_bp = Blueprint('tufin_bp', __name__)
 user = 'tufin'
 pw = 'tufin'
 
+# TuFin Root URLs
+secureworkflow = "/securechangeworkflow/api"
+securetrack = "/securetrack/api"
+
 users = {
     user: generate_password_hash(pw)
 }
@@ -22,7 +26,7 @@ def verify_password(username, password):
     return False
 
 
-@tufin_bp.route('/securechangeworkflow/api/securechange/devices', methods=['GET'])
+@tufin_bp.route(secureworkflow + '/securechange/devices', methods=['GET'])
 @auth.login_required
 def securechangeworkflow_all():
     devices_info = {
@@ -48,7 +52,9 @@ def securechangeworkflow_all():
     }
     return jsonify(devices_info)
 
-@tufin_bp.route('/securetrack/api/devices', methods=['GET'])
+
+# SecureTrack Devices
+@tufin_bp.route(securetrack + '/devices', methods=['GET'])
 @auth.login_required
 def securetrack_all():
     devices_info = {
@@ -79,3 +85,41 @@ def securetrack_all():
     }
     return jsonify(devices_info)
 
+
+# Secure Change Workflow Applications 
+@tufin_bp.route(secureworkflow + '/secureapp/repository/applications', methods=['GET'])
+@auth.login_required
+def securechangeworkflow_apps_all():
+    info = {
+        "applications":
+               {
+                "application": [   
+                               {
+                               "id": "443",
+                               "name": request.args.get('name'),
+                               "vendor": "Service Now",
+                               "comment": "",
+                               "owner": {
+                                         "name": "Jack Reacher",
+                                         "id": "2"
+                               },
+                               "status": "CONNECTED",
+                               "decommissioned": False
+                               },
+                               {
+                               "id": "3",
+                               "name": "Jira",
+                               "vendor": "Atlassian",
+                               "comment": "",
+                               "owner": {
+                                         "name": "John Wick",
+                                         "id": "3"
+                               },
+                               "status": "CONNECTED",
+                               "decommissioned": False
+                               }
+                          ]
+                }
+
+    }
+    return jsonify(info)
