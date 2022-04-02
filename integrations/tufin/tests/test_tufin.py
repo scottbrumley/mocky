@@ -1,4 +1,6 @@
 import unittest
+from integrations.tufin.tufin import NamedEntityClient
+
 
 class TestMocky(unittest.TestCase):
 
@@ -6,5 +8,3 @@ class TestMocky(unittest.TestCase):
         ner = NamedEntityClient()
         ents = ner.get_ents("")
         self.assertIsInstance(ents, dict)
-
-
