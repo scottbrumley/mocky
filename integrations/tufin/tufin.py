@@ -130,3 +130,4 @@ def secureapp_connections(appid):
     connections = QueryEntity(app_connections_info)
     connections_dict = connections.get_ents('connections', 'connection', my_args)
     return jsonify(connections_dict)
+
