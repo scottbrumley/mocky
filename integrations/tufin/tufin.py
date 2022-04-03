@@ -19,7 +19,7 @@ class QueryEntity:
     def __init__(self, dictParam):
         self.ents = dictParam
 
-    def get_ents(self, group, entity, searchterm):
+    def get_ents(self, group, entity, search_name):
         ents = {}
 
         if entity and group:
@@ -33,9 +33,9 @@ class QueryEntity:
         for device in self.ents[group][entity]:
             ttlCount = ttlCount + 1
 
-            if searchterm:
+            if search_name:
                 for key, value in device.items():
-                    if key == 'name' and value == searchterm:
+                    if key == 'name' and value == search_name:
                         findEnts.append(device)
             else:
                 findEnts.append(device)

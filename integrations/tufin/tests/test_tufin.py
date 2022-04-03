@@ -1,38 +1,30 @@
 import unittest
 from integrations.tufin.tufin import QueryEntity
+from integrations.tufin.dataset import applications_info, devices_info
 
 # from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
-
-devices_info = {
-    "devices":
-        {
-            "device": [
-                {
-                    "id": 553,
-                    "name": "asa",
-                    "ip": "9.9.9.9",
-                    "model": "5520",
-                    "vendor": "Cisco",
-                    "device_type": "asa"
-                },
-                {
-                    "id": 2,
-                    "name": "cisco_device_name",
-                    "ip": "7.7.7.7",
-                    "model": "2940",
-                    "vendor": "Cisco",
-                    "device_type": "router"
-                }
-            ]
-        }
-}
 
 class TestMocky(unittest.TestCase):
     def test_get_devices_given_term(self):
         devices = QueryEntity(devices_info)
         devices_dict = devices.get_ents('devices', 'device', 'asa')
         self.assertIsInstance(devices_dict, dict)
+
+    def test_get_applications_given_term(self):
+        applications = QueryEntity(applications_info)
+        applications_dict = applications.get_ents('applications', 'application', 'Service Now')
+        self.assertIsInstance(applications_dict, dict)
+
+    def test_get_devices_not_given_term(self):
+        devices = QueryEntity(devices_info)
+        devices_dict = devices.get_ents('devices', 'device', '')
+        self.assertIsInstance(devices_dict, dict)
+
+    def test_get_applications_not_given_term(self):
+        applications = QueryEntity(applications_info)
+        applications_dict = applications.get_ents('applications', 'application', '')
+        self.assertIsInstance(applications_dict, dict)
 
 """
 class TestMocky(unittest.TestCase):
