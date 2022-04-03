@@ -4,12 +4,45 @@ from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class NamedEntityClient:
-    def __init__(self):
-        pass
+class QueryEntity:
+    """
+    Examples of Entities in Dictionary
+        ents = {
+            "devices":
+                {"device": [
+                ]
+                }
+        }
+        """
+    def __init__(self, dictParam):
+        self.ents = dictParam
 
-    def get_ents(self, params):
-        return {}
+    def get_ents(self, group, entity, searchterm):
+        ents = {}
+
+        if entity and group:
+            ents[group] = {}
+            ents[group][entity] = []
+        else:
+            return ents
+
+        ttlCount = 0
+        findEnts = []
+        for device in self.ents[group][entity]:
+            ttlCount = ttlCount + 1
+
+            if searchterm:
+                for key, value in device.items():
+                    if key == 'name' and value == searchterm:
+                        findEnts.append(device)
+            else:
+                findEnts.append(device)
+
+        ents[group]['count'] = len(findEnts)
+        ents[group]['total'] = ttlCount
+        ents[group][entity] = findEnts
+
+        return ents
 
 
 auth = HTTPBasicAuth()
@@ -65,31 +98,10 @@ def verify_password(username, password):
 @auth.login_required
 def securetrack_all():
     name = request.args.get('name')
-    devices = {
-        "devices":
-            {"device": [
-            ]
-            }
-    }
+    devices = QueryEntity(devices_info)
+    devices_dict = devices.get_ents('devices', 'device', name)
 
-    ttlCount = 0
-    findDevices = []
-    for device in devices_info['devices']['device']:
-        ttlCount = ttlCount + 1
-
-        if name:
-            for key, value in device.items():
-                if key == 'name' and value == name:
-                    findDevices.append(device)
-        else:
-            findDevices.append(device)
-
-    print(findDevices, flush=True)
-    devices['devices']['count'] = len(findDevices)
-    devices['devices']['total'] = ttlCount
-    devices['devices']['device'] = findDevices
-    print(devices, flush=True)
-    return jsonify(devices)
+    return jsonify(devices_dict)
 
 
 # Secure Change Workflow Applications 

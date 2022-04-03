@@ -16,4 +16,4 @@ app.config["DEBUG"] = True
 app.register_blueprint(ipinfo_bp)
 app.register_blueprint(tufin_bp)
 
-app.run(host="0.0.0.0",ssl_context='adhoc')
+app.run(host="0.0.0.0", port=5000, ssl_context='adhoc')
