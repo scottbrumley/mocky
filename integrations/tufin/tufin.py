@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask_httpauth import HTTPBasicAuth
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from integrations.tufin.dataset import applications_info,devices_info
+from integrations.tufin.dataset import applications_info, devices_info, app_connections_info
 
 
 
@@ -41,6 +41,8 @@ class QueryEntity:
                     key_found = True
                     # Find all values that were in the parameters
                     for requests_key, requests_value in search_dict.items():
+                        if requests_key == "id" or requests_key == "applicationId":
+                            requests_value = int(requests_value)
 
                         # If the Key is not Found in the data source then do not return
                         if requests_key not in entity_item:
@@ -64,8 +66,14 @@ class QueryEntity:
         ents[group]['count'] = len(findEnts)
         ents[group]['total'] = ttlCount
         ents[group][entity] = findEnts
-
         return ents
+
+
+def harvest_args(arg_dict):
+    returnDict = {}
+    for key, val in arg_dict.items():
+        returnDict[key] = val
+    return returnDict
 
 
 auth = HTTPBasicAuth()
@@ -113,9 +121,14 @@ def securechangeworkflow_apps_all():
     return jsonify(applications_dict)
 
 # Secure Applications Connections
-@tufin_bp.route(secureworkflow + '/secureapp/repository/applications/<app_id>/connections', methods=['GET'])
+@tufin_bp.route(secureworkflow + '/secureapp/repository/applications/<appid>/connections', methods=['GET'])
 @auth.login_required
-def secureapp_connections(app_id):
-    connections = QueryEntity(applications_info)
-    connections_dict = connections.get_ents('connections', 'connection', app_id)
+def secureapp_connections(appid):
+    args = request.args
+    print(appid, flush=True)
+    print(args, flush=True)
+    my_args = harvest_args(args)
+    my_args['applicationId'] = int(appid)
+    connections = QueryEntity(app_connections_info)
+    connections_dict = connections.get_ents('connections', 'connection', my_args)
     return jsonify(connections_dict)

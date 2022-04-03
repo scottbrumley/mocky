@@ -1,5 +1,5 @@
 import unittest
-from integrations.tufin.tufin import QueryEntity
+from integrations.tufin.tufin import QueryEntity, harvest_args
 from integrations.tufin.dataset import applications_info, devices_info
 
 # from selenium import webdriver
@@ -41,6 +41,11 @@ class TestMocky(unittest.TestCase):
         name = {"name": "asa"}
         devices_dict = devices.get_ents('devices', '', name)
         self.assertIsInstance(devices_dict, dict)
+
+    def test_harvest_args(self):
+        my_args = {'name':'fred'}
+        args_vars = harvest_args(my_args)
+        self.assertIsInstance(args_vars, dict)
 
 """
 class TestMocky(unittest.TestCase):

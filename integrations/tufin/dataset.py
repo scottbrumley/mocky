@@ -27,25 +27,25 @@ applications_info = {
         {
             "application": [
                 {
-                    "id": "443",
+                    "id": 443,
                     "name": "Service Now",
                     "vendor": "Service Now",
                     "comment": "",
                     "owner": {
                         "name": "Jack Reacher",
-                        "id": "2"
+                        "id": 2
                     },
                     "status": "CONNECTED",
                     "decommissioned": False
                 },
                 {
-                    "id": "3",
+                    "id": 3,
                     "name": "Jira",
                     "vendor": "Atlassian",
                     "comment": "",
                     "owner": {
                         "name": "John Wick",
-                        "id": "3"
+                        "id": 3
                     },
                     "status": "CONNECTED",
                     "decommissioned": False
@@ -58,26 +58,26 @@ app_connections_info = {
         {
             "connection": [
                 {
-                    "applicationId": "10202",
+                    "applicationId": 443,
                     "name": "Service Now",
                     "vendor": "Service Now",
                     ""
                     "comment": "",
                     "owner": {
                         "name": "Jack Reacher",
-                        "id": "2"
+                        "id": 2
                     },
                     "status": "L7_APPLICATION",
                     "decommissioned": False
                 },
                 {
-                    "applicationId": "1110",
+                    "applicationId": 3,
                     "name": "Jira",
                     "vendor": "Atlassian",
                     "comment": "",
                     "owner": {
                         "name": "John Wick",
-                        "id": "3"
+                        "id": 3
                     },
                     "status": "L7_APPLICATION",
                     "decommissioned": False
