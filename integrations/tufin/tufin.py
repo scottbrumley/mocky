@@ -125,8 +125,6 @@ def securechangeworkflow_apps_all():
 @auth.login_required
 def secureapp_connections(appid):
     args = request.args
-    print(appid, flush=True)
-    print(args, flush=True)
     my_args = harvest_args(args)
     my_args['applicationId'] = int(appid)
     connections = QueryEntity(app_connections_info)
