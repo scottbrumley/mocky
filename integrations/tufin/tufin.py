@@ -19,7 +19,7 @@ class QueryEntity:
     def __init__(self, dictParam):
         self.ents = dictParam
 
-    def get_ents(self, group, entity, search_name):
+    def get_ents(self, group, entity, search_dict):
         ents = {}
 
         if entity and group:
@@ -30,15 +30,36 @@ class QueryEntity:
 
         ttlCount = 0
         findEnts = []
-        for device in self.ents[group][entity]:
+        # Look through each entity in the entities group
+        for entity_item in self.ents[group][entity]:
             ttlCount = ttlCount + 1
+            if search_dict:
+                params_found = True
+                key_found = True
+                # look through the values in the entity
+                for key, value in entity_item.items():
+                    key_found = True
+                    # Find all values that were in the parameters
+                    for requests_key, requests_value in search_dict.items():
 
-            if search_name:
-                for key, value in device.items():
-                    if key == 'name' and value == search_name:
-                        findEnts.append(device)
+                        # If the Key is not Found in the data source then do not return
+                        if requests_key not in entity_item:
+                            key_found = False
+                            pass
+                        # If Key and value matches then continue
+                        if key == requests_key and value == requests_value:
+                            continue
+                        else:
+                            # If the value of the key is not equal then parameter was not found
+                            if key == requests_key and value != requests_value:
+                                params_found = False
+                if params_found and key_found:
+                    findEnts.append(entity_item)
+                else:
+                    continue
             else:
-                findEnts.append(device)
+                # Get all entities when no parameters are given
+                findEnts.append(entity_item)
 
         ents[group]['count'] = len(findEnts)
         ents[group]['total'] = ttlCount
@@ -76,9 +97,9 @@ def verify_password(username, password):
 @tufin_bp.route(securetrack + '/devices', methods=['GET'])
 @auth.login_required
 def securetrack_all():
-    name = request.args.get('name')
+    args = request.args
     devices = QueryEntity(devices_info)
-    devices_dict = devices.get_ents('devices', 'device', name)
+    devices_dict = devices.get_ents('devices', 'device', args)
     return jsonify(devices_dict)
 
 
@@ -86,7 +107,15 @@ def securetrack_all():
 @tufin_bp.route(secureworkflow + '/secureapp/repository/applications', methods=['GET'])
 @auth.login_required
 def securechangeworkflow_apps_all():
-    name = request.args.get('name')
+    args = request.args
     applications = QueryEntity(applications_info)
-    applications_dict = applications.get_ents('applications', 'application', name)
+    applications_dict = applications.get_ents('applications', 'application', args)
     return jsonify(applications_dict)
+
+# Secure Applications Connections
+@tufin_bp.route(secureworkflow + '/secureapp/repository/applications/<app_id>/connections', methods=['GET'])
+@auth.login_required
+def secureapp_connections(app_id):
+    connections = QueryEntity(applications_info)
+    connections_dict = connections.get_ents('connections', 'connection', app_id)
+    return jsonify(connections_dict)

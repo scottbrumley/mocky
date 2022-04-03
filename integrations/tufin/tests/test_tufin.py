@@ -6,25 +6,41 @@ from integrations.tufin.dataset import applications_info, devices_info
 # from selenium.webdriver.common.keys import Keys
 
 class TestMocky(unittest.TestCase):
-    def test_get_devices_given_term(self):
+    def test_get_devices_given_device_name(self):
         devices = QueryEntity(devices_info)
-        devices_dict = devices.get_ents('devices', 'device', 'asa')
+        name = {"name": "asa"}
+        devices_dict = devices.get_ents('devices', 'device', name)
         self.assertIsInstance(devices_dict, dict)
 
-    def test_get_applications_given_term(self):
+    def test_get_applications_given_app_name(self):
         applications = QueryEntity(applications_info)
-        applications_dict = applications.get_ents('applications', 'application', 'Service Now')
+        name = {"name": "Service Now"}
+        applications_dict = applications.get_ents('applications', 'application', name)
         self.assertIsInstance(applications_dict, dict)
 
-    def test_get_devices_not_given_term(self):
+    def test_get_devices_not_given_device_name(self):
         devices = QueryEntity(devices_info)
-        devices_dict = devices.get_ents('devices', 'device', '')
+        name = {"name": ""}
+        devices_dict = devices.get_ents('devices', 'device', name)
         self.assertIsInstance(devices_dict, dict)
 
-    def test_get_applications_not_given_term(self):
+    def test_get_applications_not_given_app_name(self):
         applications = QueryEntity(applications_info)
-        applications_dict = applications.get_ents('applications', 'application', '')
+        name = {"name": ""}
+        applications_dict = applications.get_ents('applications', 'application', name)
         self.assertIsInstance(applications_dict, dict)
+
+    def test_get_devices_not_given_group_name(self):
+        devices = QueryEntity(devices_info)
+        name = {"name": "asa"}
+        devices_dict = devices.get_ents('', 'device', name)
+        self.assertIsInstance(devices_dict, dict)
+
+    def test_get_devices_not_given_entity_name(self):
+        devices = QueryEntity(devices_info)
+        name = {"name": "asa"}
+        devices_dict = devices.get_ents('devices', '', name)
+        self.assertIsInstance(devices_dict, dict)
 
 """
 class TestMocky(unittest.TestCase):

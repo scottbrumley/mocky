@@ -53,3 +53,35 @@ applications_info = {
             ]
         }
 }
+app_connections_info = {
+    "connections":
+        {
+            "connection": [
+                {
+                    "applicationId": "10202",
+                    "name": "Service Now",
+                    "vendor": "Service Now",
+                    ""
+                    "comment": "",
+                    "owner": {
+                        "name": "Jack Reacher",
+                        "id": "2"
+                    },
+                    "status": "L7_APPLICATION",
+                    "decommissioned": False
+                },
+                {
+                    "applicationId": "1110",
+                    "name": "Jira",
+                    "vendor": "Atlassian",
+                    "comment": "",
+                    "owner": {
+                        "name": "John Wick",
+                        "id": "3"
+                    },
+                    "status": "L7_APPLICATION",
+                    "decommissioned": False
+                }
+            ]
+        }
+}
