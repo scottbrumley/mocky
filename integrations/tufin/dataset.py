@@ -58,27 +58,82 @@ app_connections_info = {
         {
             "connection": [
                 {
-                    "applicationId": 443,
+                    "id": 443,
                     "name": "Service Now",
                     "vendor": "Service Now",
-                    ""
+                    "services": {
+                        "service": [
+                            {
+                                "id": 5344,
+                                "name": "ftp",
+                                "type":"host"
+                        }
+                    ]
+                    },
+                    "destinations": {
+                        "destination": [
+                            {
+                                "id": 4055,
+                                "name": "Finance01",
+                                "type":"host"
+                        }
+                    ]
+                    },
+                    "sources": {
+                        "source": [
+                            {
+                                "id": 4034,
+                                "name": "CRM01",
+                                "type":"host"
+                        }
+                    ]
+                    },
                     "comment": "",
                     "owner": {
                         "name": "Jack Reacher",
                         "id": 2
                     },
+                    "external": True,
                     "status": "L7_APPLICATION",
                     "decommissioned": False
                 },
                 {
-                    "applicationId": 3,
+                    "id": 3,
                     "name": "Jira",
                     "vendor": "Atlassian",
+                    "services": {
+                        "service": [
+                            {
+                                "id": 2044,
+                                "name": "https",
+                                "type":"host"
+                        }
+                    ]
+                    },
+                    "destinations": {
+                        "destination": [
+                            {
+                                "id": 4054,
+                                "name": "Finance01",
+                                "type":"host"
+                        }
+                    ]
+                    },
+                    "sources": {
+                        "source": [
+                            {
+                                "id": 4044,
+                                "name": "JIRA01",
+                                "type":"host"
+                        }
+                    ]
+                    },
                     "comment": "",
                     "owner": {
                         "name": "John Wick",
                         "id": 3
                     },
+                    "external": True,
                     "status": "L7_APPLICATION",
                     "decommissioned": False
                 }

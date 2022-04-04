@@ -126,7 +126,8 @@ def securechangeworkflow_apps_all():
 def secureapp_connections(appid):
     args = request.args
     my_args = harvest_args(args)
-    my_args['applicationId'] = int(appid)
+    #my_args['applicationId'] = int(appid)
+    my_args['id'] = int(appid)
     connections = QueryEntity(app_connections_info)
     connections_dict = connections.get_ents('connections', 'connection', my_args)
     return jsonify(connections_dict)
