@@ -30,9 +30,8 @@ def verify_password(username, password):
 
 
 # Test Link
-@panorama_bp.route(panorama_url, methods=['GET'])
+@panorama_bp.route(panorama_url + "/api", methods=['GET'])
 @auth.login_required
-
 def panorama_test():
     xml = '<body>foo</body>'
     response = make_response(xml)

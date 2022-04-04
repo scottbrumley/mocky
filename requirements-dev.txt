@@ -1,5 +1,6 @@
 Flask==2.0.3
 Flask-HTTPAuth==4.5.0
 pyOpenSSL==22.0.0
+urllib3==1.26.9
 pytest==7.0.1
 selenium==4.0.0a7
