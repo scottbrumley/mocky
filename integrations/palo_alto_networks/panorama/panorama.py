@@ -2,6 +2,7 @@ from flask import make_response
 from flask import Blueprint
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
+from integrations.palo_alto_networks.panorama.dataset import testing
 
 INTEGRATION = "panorama"
 
@@ -11,7 +12,7 @@ pw = 'palo01'
 
 # Panorama Root URLs
 API_KEY = "7777777"
-panorama_url = "/panorama"
+panorama_url = "/" + INTEGRATION
 
 
 auth = HTTPBasicAuth()
@@ -33,7 +34,7 @@ def verify_password(username, password):
 @panorama_bp.route(panorama_url + "/api", methods=['GET'])
 @auth.login_required
 def panorama_test():
-    xml = '<body>foo</body>'
-    response = make_response(xml)
+    xml = "<body>test</body>"
+    response = make_response(testing)
     response.headers['Content-Type'] = 'text/xml; charset=utf-8'
     return response
