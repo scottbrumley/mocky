@@ -71,3 +71,14 @@ def jobs_id(job_id):
                         </result>
                         </response>"""
     return return_str
+
+
+download_content_upgrade = """<response status="success" code="19">
+                        <result>
+                        <msg>
+                        <line>Download job enqueued with jobid 50</line>
+                        </msg>
+                        <job>50</job>
+                        </result>
+                        </response>"""
+

@@ -2,7 +2,7 @@ import re
 from flask import make_response
 from flask import Blueprint
 from flask import request
-from integrations.palo_alto_networks.panorama.dataset import system_info, jobs_id
+from integrations.palo_alto_networks.panorama.dataset import *
 
 INTEGRATION = "panorama"
 
@@ -25,6 +25,8 @@ class Commands:
             my_id = re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd).group(1)
             print(my_id, flush=True)
             return_value = jobs_id(my_id)
+        if exec_cmd == "<request><content><upgrade><download><latest/>" and cmd_type == "op":
+            return_value = download_content_upgrade
         return return_value
 
 
