@@ -1,11 +1,16 @@
 import unittest
+import requests
+from integrations.tufin.tufin import INTEGRATION, user, pw
+from urllib3.exceptions import InsecureRequestWarning
 from integrations.tufin.tufin import QueryEntity, harvest_args
 from integrations.tufin.dataset import applications_info, devices_info
 
 # from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
 
-class TestMocky(unittest.TestCase):
+SERVER = "https://localhost:5000"
+
+class TestTufin(unittest.TestCase):
     def test_get_devices_given_device_name(self):
         devices = QueryEntity(devices_info)
         name = {"name": "asa"}
@@ -46,6 +51,13 @@ class TestMocky(unittest.TestCase):
         my_args = {'name':'fred'}
         args_vars = harvest_args(my_args)
         self.assertIsInstance(args_vars, dict)
+
+    class TestPanorama(unittest.TestCase):
+        def test_http_response_status_200(self):
+            requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+            test_url = SERVER + "/" + INTEGRATION
+            response = requests.get(test_url, auth=(user,pw), verify=False)
+            assert response.status_code == 200
 
 """
 class TestMocky(unittest.TestCase):

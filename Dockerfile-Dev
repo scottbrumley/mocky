@@ -3,4 +3,5 @@ WORKDIR /app
 COPY requirements-dev.txt .
 RUN pip install -r requirements-dev.txt
 COPY . .
-SHELL ["/bin/bash", "-c"]
+#SHELL ["/bin/bash", "-c"]
+CMD ["python", "mocky.py"]

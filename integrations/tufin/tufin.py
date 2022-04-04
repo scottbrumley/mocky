@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask_httpauth import HTTPBasicAuth
+from flask import Response
 from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from integrations.tufin.dataset import applications_info, devices_info, app_connections_info
@@ -100,6 +101,12 @@ def verify_password(username, password):
         return check_password_hash(users.get(username), password)
     return False
 
+# Test Link
+@tufin_bp.route( "/" + INTEGRATION, methods=['GET'])
+@auth.login_required
+def panorama_test():
+    xml = 'foo'
+    return Response(xml, mimetype='text/xml')
 
 # SecureTrack Devices
 @tufin_bp.route(securetrack + '/devices', methods=['GET'])
