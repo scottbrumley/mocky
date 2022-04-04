@@ -1,7 +1,8 @@
+import re
 from flask import make_response
 from flask import Blueprint
 from flask import request
-from integrations.palo_alto_networks.panorama.dataset import system_info
+from integrations.palo_alto_networks.panorama.dataset import system_info, jobs_id
 
 INTEGRATION = "panorama"
 
@@ -18,8 +19,12 @@ class Commands:
 
     def run_command(self,exec_cmd, cmd_type):
         return_value = "<xml>No Value</xml>"
-        if exec_cmd and cmd_type:
+        if exec_cmd == "<show><system><info></info></system></show>" and cmd_type == "op":
             return_value = system_info
+        if re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd) and cmd_type == "op":
+            my_id = re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd).group(1)
+            print(my_id, flush=True)
+            return_value = jobs_id(my_id)
         return return_value
 
 

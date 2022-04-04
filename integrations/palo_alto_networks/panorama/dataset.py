@@ -45,3 +45,29 @@ system_info = f"""<response status="success">
                     </system>
                     </result>
                     </response>"""
+
+
+def jobs_id(job_id):
+    return_str = """<response status="success">
+                        <result>
+                        <job>
+                        <tenq>2020/05/07 11:29:48</tenq>
+                        <tdeq>11:29:48</tdeq>
+                        <id>""" + job_id + """</id>
+                        <user>admin</user>
+                        <type>Commit</type>
+                        <status>FIN</status>
+                        <queued>NO</queued>
+                        <stoppable>no</stoppable>
+                        <result>OK</result>
+                        <tfin>11:34:12</tfin>
+                        <description/>
+                        <positionInQ>0</positionInQ>
+                        <progress>100</progress>
+                        <details>
+                        <line>Configuration committed successfully</line>
+                        </details>
+                        </job>
+                        </result>
+                        </response>"""
+    return return_str
