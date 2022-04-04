@@ -1,4 +1,4 @@
-testing = f"""<response status="success">
+system_info = f"""<response status="success">
                     <result>
                     <system>
                     <hostname>PA-7080</hostname>

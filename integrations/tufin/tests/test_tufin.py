@@ -1,7 +1,7 @@
 import unittest
 import requests
+import urllib3
 from integrations.tufin.tufin import INTEGRATION, user, pw
-from urllib3.exceptions import InsecureRequestWarning
 from integrations.tufin.tufin import QueryEntity, harvest_args
 from integrations.tufin.dataset import applications_info, devices_info
 
@@ -9,6 +9,7 @@ from integrations.tufin.dataset import applications_info, devices_info
 # from selenium.webdriver.common.keys import Keys
 
 SERVER = "https://localhost:5000"
+
 
 class TestTufin(unittest.TestCase):
     def test_get_devices_given_device_name(self):
@@ -54,7 +55,7 @@ class TestTufin(unittest.TestCase):
 
     class TestPanorama(unittest.TestCase):
         def test_http_response_status_200(self):
-            requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             test_url = SERVER + "/" + INTEGRATION
             response = requests.get(test_url, auth=(user,pw), verify=False)
             assert response.status_code == 200
