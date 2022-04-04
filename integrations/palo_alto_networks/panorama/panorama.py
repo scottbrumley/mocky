@@ -31,7 +31,7 @@ class Commands:
 
 
 # Test Link
-@panorama_bp.route(panorama_url + "/api/", methods=['GET'])
+@panorama_bp.route(panorama_url + "/api/", methods=['GET','POST'])
 def panorama_test():
     param_key = request.args.get("key")
     param_type = request.args.get("type")
