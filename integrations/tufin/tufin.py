@@ -4,7 +4,7 @@ from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from integrations.tufin.dataset import applications_info, devices_info, app_connections_info
 
-
+INTEGRATION = "tufin"
 
 class QueryEntity:
     """
@@ -77,15 +77,15 @@ def harvest_args(arg_dict):
 
 
 auth = HTTPBasicAuth()
-tufin_bp = Blueprint('tufin_bp', __name__)
+tufin_bp = Blueprint(f"{INTEGRATION}" + 'bp', __name__)
 
 # Hard Code User and Password
 user = 'tufin'
 pw = 'tufin'
 
 # TuFin Root URLs
-secureworkflow = "/securechangeworkflow/api"
-securetrack = "/securetrack/api"
+secureworkflow = "/" + INTEGRATION + "/securechangeworkflow/api"
+securetrack = "/" + INTEGRATION + "/securetrack/api"
 
 
 
