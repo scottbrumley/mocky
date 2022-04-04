@@ -11,7 +11,7 @@ panorama_url = "/" + INTEGRATION
 panorama_bp = Blueprint(f"{INTEGRATION}" + '_bp', __name__)
 
 # Test Link
-@panorama_bp.route(panorama_url + "/api", methods=['GET'])
+@panorama_bp.route(panorama_url + "/api/", methods=['GET'])
 def panorama_test():
     xml = "<body>test</body>"
     response = make_response(testing)
