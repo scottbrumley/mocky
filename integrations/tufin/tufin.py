@@ -120,13 +120,13 @@ def securechangeworkflow_apps_all():
     applications_dict = applications.get_ents('applications', 'application', args)
     return jsonify(applications_dict)
 
+
 # Secure Applications Connections
 @tufin_bp.route(secureworkflow + '/secureapp/repository/applications/<appid>/connections', methods=['GET'])
 @auth.login_required
 def secureapp_connections(appid):
     args = request.args
     my_args = harvest_args(args)
-    #my_args['applicationId'] = int(appid)
     my_args['id'] = int(appid)
     connections = QueryEntity(app_connections_info)
     connections_dict = connections.get_ents('connections', 'connection', my_args)
