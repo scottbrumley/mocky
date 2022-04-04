@@ -25,7 +25,7 @@ class Commands:
             my_id = re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd).group(1)
             print(my_id, flush=True)
             return_value = jobs_id(my_id)
-        if exec_cmd == "<request><content><upgrade><download><latest/>" and cmd_type == "op":
+        if "<request><content><upgrade><download><latest/>" in exec_cmd and cmd_type == "op":
             return_value = download_content_upgrade
         return return_value
 
