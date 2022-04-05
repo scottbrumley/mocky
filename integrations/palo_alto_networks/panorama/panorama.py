@@ -18,25 +18,39 @@ class Commands:
         return
 
     def run_command(self,exec_cmd, cmd_type):
-        return_value = "<xml>No Value</xml>"
         if exec_cmd == "<show><system><info></info></system></show>" and cmd_type == "op":
             return_value = system_info
-        if re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd) and cmd_type == "op":
+        elif re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd) and cmd_type == "op":
             my_id = re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd).group(1)
             return_value = jobs_id(my_id)
-        if "<request><content><upgrade><download><latest/>" in exec_cmd and cmd_type == "op":
+        elif "<request><content><upgrade><download><latest/>" in exec_cmd and cmd_type == "op":
             return_value = download_content_upgrade
-        if "<request><content><upgrade><install><version>latest</version></install></upgrade></content></request>" \
+        elif "<request><content><upgrade><install><version>latest</version></install></upgrade></content></request>" \
                 and cmd_type == "op":
             return_value = install_content_upgrade
-        if "<request><system><software><check>" in exec_cmd and cmd_type == "op":
+        elif "<request><system><software><check>" in exec_cmd and cmd_type == "op":
             return_value = pan_os_upgrade_check
-        if "<request><system><software><download>" in exec_cmd and cmd_type == "op":
+        elif "<request><system><software><download>" in exec_cmd and cmd_type == "op":
             return_value = pan_os_upgrade_install
-        if "<request><restart><system>" in exec_cmd and cmd_type == "op":
+        elif "<request><restart><system>" in exec_cmd and cmd_type == "op":
             return_value = restart_fw
-        if "<test><security-policy-match>" in exec_cmd and cmd_type == "op":
+        elif "<test><security-policy-match>" in exec_cmd and cmd_type == "op":
             return_value = test_security_policy
+        #elif "<show><objects>" in exec_cmd:
+        #    return_value showobjects(command)
+        elif "<test><url-info-host>" in exec_cmd:
+            my_host = re.search("<test><url-info-host>(.*)</url-info-host></test>", exec_cmd).group(1)
+            return_value = get_url_info_from_host(my_host)
+        elif "<test><url-info-cloud>" in exec_cmd:
+            my_host = re.search("<test><url-info-cloud>(.*)</url-info-cloud></test>", exec_cmd).group(1)
+            return_value = get_url_info_from_cloud(my_host)
+        elif "<test><url>" in exec_cmd:
+            my_url = re.search("<test><url>(.*)</url></test>", exec_cmd).group(1)
+            return_value = test_url(my_url)
+        elif "<request><plugins><cloud_services>" in exec_cmd:
+            return_value = prisma_access_logout(exec_cmd)
+        else:
+            return_value = system_info
         return return_value
 
 

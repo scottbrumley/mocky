@@ -1,3 +1,5 @@
+import base64
+
 system_info = f"""<response status="success">
                     <result>
                     <system>
@@ -217,3 +219,40 @@ test_security_policy = """<response cmd="status" status="success">
                     </response>"""
 
 
+def get_url_info_from_host(host_str):
+    return_val = """<response cmd="status" status="success"><result>""" \
+                 + str(host_str) \
+                 + """: Doesn't exist in the URL DB</result></response>"""
+    return return_val
+
+
+def get_url_info_from_cloud(host_str):
+    return_val = """<response cmd="status" status="success"><result>BM:""" \
+                 + str(host_str) \
+                 + """,9,5,malware,high-risk</result></response>"""
+    return return_val
+
+
+def test_url(url_str):
+    return_val = """<response cmd="status" status="success"><result>""" \
+                 + str(url_str) \
+                 + """ malware high-risk (Base db) mlav_flag=0 expires in 0 seconds""" \
+                 + str(url_str) + """ malware high-risk (Cloud db)</result></response>"""
+    return return_val
+
+
+def prisma_access_logout(prisma_str):
+    comp_start = prisma_str.find("<computer>") + 10
+    comp_end = prisma_str.find("</computer>", comp_start)
+    computer = base64.b64decode(prisma_str[comp_start:comp_end]).decode("utf-8")
+    dom_start = prisma_str.find("<domain>") + 8
+    dom_end = prisma_str.find("</domain>", dom_start)
+    domain = prisma_str[dom_start:dom_end]
+    user_start = prisma_str.find("<user>") + 6
+    user_end = prisma_str.find("</user>", user_start)
+    user = base64.b64decode(prisma_str[user_start:user_end]).decode("utf-8")
+    return_val = """<response status="success">
+                        <result>User: """ + user + " successfully logged out of computer: " \
+                 + domain + "/" \
+                 + computer + """</result></response>"""
+    return return_val
