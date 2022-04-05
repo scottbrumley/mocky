@@ -28,3 +28,11 @@ class TestPanorama(unittest.TestCase):
         response = requests.post(test_url, data=my_params, verify=False)
         assert response.status_code == 200
 
+    def test_http_response_install_content_upgrade(self):
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        test_url = SERVER + panorama_url + "/api/"
+        response = requests.get(test_url, params={"type": "op", "cmd": "<request><content><upgrade><install><version>"
+                                                                       "latest</version></install></upgrade></content>"
+                                                                       "</request>",
+                                                  "key": API_KEY}, verify=False)
+        assert response.status_code == 200

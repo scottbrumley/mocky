@@ -26,6 +26,9 @@ class Commands:
             return_value = jobs_id(my_id)
         if "<request><content><upgrade><download><latest/>" in exec_cmd and cmd_type == "op":
             return_value = download_content_upgrade
+        if "<request><content><upgrade><install><version>latest</version></install></upgrade></content></request>" \
+                and cmd_type == "op":
+            return_value = install_content_upgrade
         return return_value
 
 

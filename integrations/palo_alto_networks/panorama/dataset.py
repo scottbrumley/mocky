@@ -82,3 +82,138 @@ download_content_upgrade = """<response status="success" code="19">
                         </result>
                         </response>"""
 
+
+install_content_upgrade = """<response status="success" code="19">
+                        <result>
+                        <msg>
+                        <line>Content install job enqueued with jobid 51</line>
+                        </msg>
+                        <job>51</job>
+                        </result>
+                        </response>"""
+
+
+pan_os_upgrade_check = """<response status="success">
+                            <result>
+                            <sw-updates last-updated-at="2020/04/22 09:52:50">
+                            <msg/>
+                            <versions>
+                            <entry>
+                            <version>9.1.2-h1</version>
+                            <filename>PanOS_220-9.1.2-h1</filename>
+                            <size>277</size>
+                            <size-kb>283789</size-kb>
+                            <released-on>2020/04/29 08:01:29</released-on>
+                            <release-notes>
+                            <![CDATA[
+                            https://prod.itpdownloads.paloaltonetworks.com/software/PAN-OS-9.1.2-h1-RN.pdf?Expires=1589107118&KeyName=contentupdates-prod&Signature=fV7QnxUrqFQ5w7Zfe6MQtKRFxvE=
+                            ]]>
+                            </release-notes>
+                            <downloaded>no</downloaded>
+                            <current>no</current>
+                            <latest>no</latest>
+                            <uploaded>no</uploaded>
+                            </entry>
+                            <entry>
+                            <version>9.1.2</version>
+                            <filename>PanOS_220-9.1.2</filename>
+                            <size>277</size>
+                            <size-kb>283775</size-kb>
+                            <released-on>2020/04/08 10:49:11</released-on>
+                            <release-notes>
+                            <![CDATA[
+                            https://www.paloaltonetworks.com/documentation/91/pan-os/pan-os-release-notes
+                            ]]>
+                            </release-notes>
+                            <downloaded>no</downloaded>
+                            <current>no</current>
+                            <latest>no</latest>
+                            <uploaded>no</uploaded>
+                            </entry>
+                            <entry>
+                            <version>9.1.1</version>
+                            <filename>PanOS_220-9.1.1</filename>
+                            <size>277</size>
+                            <size-kb>283762</size-kb>
+                            <released-on>2020/02/10 14:10:23</released-on>
+                            <release-notes>
+                            <![CDATA[
+                            https://www.paloaltonetworks.com/documentation/91/pan-os/pan-os-release-notes
+                            ]]>
+                            </release-notes>
+                            <downloaded>no</downloaded>
+                            <current>no</current>
+                            <latest>no</latest>
+                            <uploaded>no</uploaded>
+                            </entry>
+                            <entry>
+                            <version>9.1.0</version>
+                            <filename>PanOS_220-9.1.0</filename>
+                            <size>421</size>
+                            <size-kb>431135</size-kb>
+                            <released-on>2019/12/13 12:51:48</released-on>
+                            <release-notes>
+                            <![CDATA[
+                            https://www.paloaltonetworks.com/documentation/91/pan-os/pan-os-release-notes
+                            ]]>
+                            </release-notes>
+                            <downloaded>yes</downloaded>
+                            <current>no</current>
+                            <latest>no</latest>
+                            <uploaded>no</uploaded>
+                            </entry>
+                            </versions>
+                            </sw-updates>
+                            </result>
+                            </response>"""
+
+
+pan_os_upgrade_download = """<response status="success" code="19">
+                        <result>
+                        <msg>
+                        <line>Download job enqueued with jobid 52</line>
+                        </msg>
+                        <job>52</job>
+                        </result>
+                        </response>"""
+
+pan_os_upgrade_install = """<response status="success" code="19">
+                        <result>
+                        <msg>
+                        <line>Install job enqueued with jobid 54</line>
+                        </msg>
+                        <job>54</job>
+                        </result>
+                        </response>"""
+
+restart_fw = """<response status="success">
+                        <result>Command succeeded with no output</result>
+                        </response>"""
+
+test_security_policy = """<response cmd="status" status="success">
+                        <result>
+                            <rules>
+                                <entry name='FromTrust'>
+                                    <index>1</index>
+                                    <from>Trust-L3</from>
+                                    <source>any</source>
+                                    <source-region>none</source-region>
+                                    <to>
+                                        <member>Untrust-L3</member>
+                                    </to>
+                                    <destination>any</destination>
+                                    <destination-region>none</destination-region>
+                                    <user>any</user>
+                                    <source-device>any</source-device>
+                                    <destinataion-device>any</destinataion-device>
+                                    <category>any</category>
+                                    <application_service>0:any/any/any/any</application_service>
+                                    <action>allow</action>
+                                    <icmp-unreachable>no</icmp-unreachable>
+                                    <terminal>yes</terminal>
+                                </entry>
+                            </rules>
+                        </result>
+                    </response>"""
+
+
