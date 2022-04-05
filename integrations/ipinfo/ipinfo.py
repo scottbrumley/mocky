@@ -1,11 +1,13 @@
 from flask import Blueprint
-from flask import request, jsonify
+from flask import jsonify
 
 
-ipinfo_bp = Blueprint('ipinfo_bp', __name__)
+INTEGRATION = "ipinfo"
+
+ipinfo_bp = Blueprint(f"{INTEGRATION}" + '_bp', __name__)
 
 
-@ipinfo_bp.route('/<ip>/json', methods=['GET'])
+@ipinfo_bp.route("/" + INTEGRATION + '/<ip>/json', methods=['GET'])
 def api_all(ip):
     ip_info = {
         "anycast": True,
