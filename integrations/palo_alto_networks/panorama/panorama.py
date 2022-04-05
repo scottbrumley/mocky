@@ -23,7 +23,6 @@ class Commands:
             return_value = system_info
         if re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd) and cmd_type == "op":
             my_id = re.search("<show><jobs><id>(.*)</id></jobs></show>", exec_cmd).group(1)
-            print(my_id, flush=True)
             return_value = jobs_id(my_id)
         if "<request><content><upgrade><download><latest/>" in exec_cmd and cmd_type == "op":
             return_value = download_content_upgrade
@@ -31,12 +30,20 @@ class Commands:
 
 
 # Test Link
-@panorama_bp.route(panorama_url + "/api/", methods=['GET','POST'])
+@panorama_bp.route(panorama_url + "/api/", methods=['POST', 'GET'])
 def panorama_test():
-    param_key = request.args.get("key")
-    param_type = request.args.get("type")
-    param_cmd = request.args.get("cmd")
-    print(param_cmd, flush=True)
+
+    print(request.method, flush=True)
+    if request.method == "POST":
+        param_key = request.form["key"]
+        param_type = request.form["type"]
+        param_cmd = request.form["cmd"]
+
+    else:
+        param_key = request.args.get("key")
+        param_type = request.args.get("type")
+        param_cmd = request.args.get("cmd")
+
     if param_key == API_KEY:
         exec_cmds = Commands()
         ret_response = exec_cmds.run_command(param_cmd, param_type)
