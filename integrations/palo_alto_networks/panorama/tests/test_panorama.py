@@ -44,3 +44,17 @@ class TestPanorama(unittest.TestCase):
                                                                        "</software></system></request>",
                                                   "key": API_KEY}, verify=False)
         assert response.status_code == 200
+
+    def test_http_response_pan_os_upgrade_install(self):
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        test_url = SERVER + panorama_url + "/api/"
+        response = requests.get(test_url, params={"type": "op", "cmd": "<request><restart><system>",
+                                                  "key": API_KEY}, verify=False)
+        assert response.status_code == 200
+
+    def test_http_response_test_security_policy(self):
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        test_url = SERVER + panorama_url + "/api/"
+        response = requests.get(test_url, params={"type": "op", "cmd": "<test><security-policy-match>",
+                                                  "key": API_KEY}, verify=False)
+        assert response.status_code == 200

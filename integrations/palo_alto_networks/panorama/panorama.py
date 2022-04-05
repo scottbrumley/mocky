@@ -29,9 +29,14 @@ class Commands:
         if "<request><content><upgrade><install><version>latest</version></install></upgrade></content></request>" \
                 and cmd_type == "op":
             return_value = install_content_upgrade
-        if "<request><system><software><check></check></software></system></request>" \
-                and cmd_type == "op":
+        if "<request><system><software><check>" in exec_cmd and cmd_type == "op":
             return_value = pan_os_upgrade_check
+        if "<request><system><software><download>" in exec_cmd and cmd_type == "op":
+            return_value = pan_os_upgrade_install
+        if "<request><restart><system>" in exec_cmd and cmd_type == "op":
+            return_value = restart_fw
+        if "<test><security-policy-match>" in exec_cmd and cmd_type == "op":
+            return_value = test_security_policy
         return return_value
 
 
