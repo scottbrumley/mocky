@@ -12,10 +12,10 @@ The dev option will build with testing packages and the container will have -dev
 
 # Running Docker Container
 Run "./start.sh" for Production and "./start.sh dev" for Development.
-The dev option will start you inside the container so you can run tests or execute the mocky "python mocky.py"
 
 ## Testing
-To Run Unit Test use: "python -m pytest" inside the docker container
+To Run Unit Test use: "python -m pytest" outside the docker container.  Insure you're enviroment has requirements from requirements-dev.txt such as pytest.
+
 
 # Stopping Docker Container
 Run "./stop.sh" for Production and "./stop.sh dev" for Development
