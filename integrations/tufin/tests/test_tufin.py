@@ -59,28 +59,3 @@ class TestTufin(unittest.TestCase):
             test_url = SERVER + "/" + INTEGRATION
             response = requests.get(test_url, auth=(user,pw), verify=False)
             assert response.status_code == 200
-
-"""
-class TestMocky(unittest.TestCase):
-
-    def test_count_equals_total_given_empty_string(self):
-        driver = webdriver.Chrome('./chromedriver')
-        driver.get("https://localhost:5000/securetrack/api/devices")
-        print(driver.title)
-
-        dict = json.dump(devices)
-        self.assertEquals(dict.count, dict.total, 'Total Records equals Count Returned')
-"""
-
-
-"""
-def test_home_page_with_fixture(test_client):
-
-    with flask_app.test_client() as testing_client:
-        response = test_client.get('/')
-        assert response.status_code == 200
-        assert b"Welcome to the" in response.data
-        assert b"Flask User Management Example!" in response.data
-        assert b"Need an account?" in response.data
-        assert b"Existing user?" in response.data
-"""
