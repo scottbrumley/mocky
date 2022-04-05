@@ -29,6 +29,9 @@ class Commands:
         if "<request><content><upgrade><install><version>latest</version></install></upgrade></content></request>" \
                 and cmd_type == "op":
             return_value = install_content_upgrade
+        if "<request><system><software><check></check></software></system></request>" \
+                and cmd_type == "op":
+            return_value = pan_os_upgrade_check
         return return_value
 
 

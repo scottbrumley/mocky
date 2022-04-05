@@ -36,3 +36,11 @@ class TestPanorama(unittest.TestCase):
                                                                        "</request>",
                                                   "key": API_KEY}, verify=False)
         assert response.status_code == 200
+
+    def test_http_response_pan_os_upgrade_check(self):
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+        test_url = SERVER + panorama_url + "/api/"
+        response = requests.get(test_url, params={"type": "op", "cmd": "<request><system><software><check></check>"
+                                                                       "</software></system></request>",
+                                                  "key": API_KEY}, verify=False)
+        assert response.status_code == 200
